@@ -17,6 +17,7 @@ public class Work_Class {
 
 		/*String soapEndpointUrl = "http://www.webservicex.net/uszip.asmx";
 		String soapAction = "http://www.webserviceX.NET/GetInfoByCity";
+		//second commit
 		String myNamespace = "myNamespace";
 		String myNamespaceURI = "http://www.webserviceX.NET";
 
