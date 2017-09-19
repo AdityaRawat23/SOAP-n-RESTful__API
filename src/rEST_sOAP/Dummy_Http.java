@@ -36,7 +36,7 @@ public class Dummy_Http {
 	
 	//http GET function for request and response JSON
 	
-	public void doGet(String url) throws Exception, Exception
+	public String doGet(String url) throws Exception, Exception
 	{
 		System.out.println("CALLING HTTP DO GET METHOD DUMMY_HTTP CLASS");
 		JSONParser parser=new JSONParser();
@@ -63,13 +63,16 @@ public class Dummy_Http {
 		System.out.println("");
 		String dummy3=(String)dummy2.get("VOIP");
 		//Value of VOIP for the 2nd JSONObject in  the JSONArray 
-		System.out.println("Value of VOIP for the 2nd JSONObject in  the JSONArray \n"+dummy3);
-		System.out.println("");
+		int status=response.getStatusLine().getStatusCode();
+		
+		return dummy3;
+		//System.out.println("Value of VOIP for the 2nd JSONObject in  the JSONArray \n"+dummy3);
+		//System.out.println("");
 
 	}
 
 	@SuppressWarnings({ "deprecation", "resource" })
-	public void doPost(String url,String json) throws Exception, Exception
+	public int doPost(String url,String json) throws Exception, Exception
 	{
 
 		//"https://hooks.slack.com/services/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"
@@ -83,11 +86,12 @@ public class Dummy_Http {
 		post.setEntity(entity);
 		HttpResponse response = client.execute(post);
 
-		System.out.println("AFTER POST == "+response.getStatusLine().getStatusCode());
+		int status=response.getStatusLine().getStatusCode();
+		return status;
 
 	}
 
-	public void doPut(String url,String json) throws ClientProtocolException, IOException
+	public Object doPut(String url,String json) throws ClientProtocolException, IOException
 	{
 		HttpClient client = new DefaultHttpClient();
 
@@ -105,11 +109,11 @@ public class Dummy_Http {
 		request.setEntity(entity);
 		HttpResponse response = client.execute(request);
 		int responseCode = response.getStatusLine().getStatusCode();
-		System.out.println(responseCode);
+		return responseCode;
 
 	}
 
-	public void doDelete(String url) throws Exception, Exception
+	public String doDelete(String url) throws Exception, Exception
 	{
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpDelete deleteRequest = new HttpDelete(url);
@@ -117,7 +121,8 @@ public class Dummy_Http {
 
 		HttpResponse response = httpClient.execute(deleteRequest);
 		String status = response.getStatusLine().toString();
-		System.out.println(status);
+		
+		return status;
 
 	}
 

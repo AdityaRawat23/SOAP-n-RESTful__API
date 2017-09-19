@@ -1,4 +1,6 @@
 package rEST_sOAP;
+import java.io.FileOutputStream;
+
 import javax.xml.soap.*;
 
 public class SOAPClientSAAJ {
@@ -16,8 +18,13 @@ public class SOAPClientSAAJ {
 			// Print the SOAP Response
 			System.out.println("Response SOAP Message:");
 			soapResponse.writeTo(System.out);
+			FileOutputStream fOut = new FileOutputStream("SoapMessage.xml");
+			soapResponse.writeTo(fOut);
+			
 			System.out.println();
+			System.out.println("SOAP message created");
 
+			
 			soapConnection.close();
 		} catch (Exception e) {
 			System.err.println("\nError occurred while sending SOAP Request to Server!\nMake sure you have the correct endpoint URL and SOAPAction!\n");
@@ -37,12 +44,24 @@ public class SOAPClientSAAJ {
 			SOAPBody soapBody = envelope.getBody();
 			SOAPElement soapBodyElem;
 			SOAPElement soapBodyElem1;
-			if(strings.length>0)
+			/*if(strings.length>0)
 			{
 				String[] SOAPParameter=strings[0].split(",");
+				String[] SOAPParameter1=strings[1].split(",");
 				soapBodyElem = soapBody.addChildElement(soapAction.substring(soapAction.lastIndexOf("/")+1), myNamespace);
 				soapBodyElem1 = soapBodyElem.addChildElement(SOAPParameter[0], myNamespace);
+				SOAPElement soapBodyElem2 = soapBodyElem.addChildElement(SOAPParameter1[0],myNamespace);
+				soapBodyElem2.addTextNode(SOAPParameter1[1]);
 				soapBodyElem1.addTextNode(SOAPParameter[1]);
+			}*/
+			
+			
+			for(int i=0;i<strings.length;i++)
+			{
+				String[] SOAPParameter=strings[i].split(",");
+				soapBodyElem = soapBody.addChildElement(soapAction.substring(soapAction.lastIndexOf("/")+1), myNamespace);
+				soapBodyElem = soapBodyElem.addChildElement(SOAPParameter[0], myNamespace);
+				soapBodyElem.addTextNode(SOAPParameter[1]);
 			}
 						
 //			SOAPElement soapBodyElem = soapBody.addChildElement("GetInfoByCity", myNamespace);
@@ -59,7 +78,9 @@ public class SOAPClientSAAJ {
 		MessageFactory messageFactory = MessageFactory.newInstance();
 		SOAPMessage soapMessage = messageFactory.createMessage();
 
-		createSoapEnvelope(soapMessage,myNamespace,myNamespaceURI,soapAction,"USCity,New York");
+		
+		
+		createSoapEnvelope(soapMessage,myNamespace,myNamespaceURI,soapAction,"CityName,NEW YORK","CountryName,USA");
 
 		MimeHeaders headers = soapMessage.getMimeHeaders();
 		headers.addHeader("SOAPAction", soapAction);
@@ -75,3 +96,20 @@ public class SOAPClientSAAJ {
 	}
 
 }
+
+
+/*
+ * 
+ * 
+ * 
+ *
+DocumentBuilderFactory builderFactory=DocumentBuilderFactory.newInstance();
+builderFactory.setNamespaceAware(true);
+DocumentBuilder builder=builderFactory.newDocumentBuilder();
+Document document=builder.parse("document.xml");
+body.addDocument(document);
+
+*
+*
+*
+*/
