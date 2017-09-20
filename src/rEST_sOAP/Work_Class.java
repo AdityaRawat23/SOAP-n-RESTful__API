@@ -24,8 +24,8 @@ public class Work_Class {
 		*/
 		
 		System.out.println("CALLING THE SOAP_CALL METHOD OF THE SOAPClientSAAJ CLASS\n\n");
-		String soapEndpointUrl = "http://www.webservicex.net/globalweather.asmx?WSDL\r\n";
-		String soapAction = "http://www.webserviceX.NET/GetWeather";
+		String soapEndpointUrl = "http://www.webservicex.net/ConvertSpeed.asmx?WSDL";
+		String soapAction = "http://www.webserviceX.NET/ConvertSpeed";
 
 		String myNamespace = "myNamespace";
 		String myNamespaceURI = "http://www.webserviceX.NET";
